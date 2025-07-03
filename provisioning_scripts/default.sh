@@ -98,9 +98,11 @@ function provisioning_download() {
         token_header="Authorization: Bearer $HF_TOKEN"
     fi
 
-    wget -qnc --content-disposition --show-progress -e dotbytes=4M \
-        ${token_header:+--header="$token_header"} \
-        -P "$dir" "$url"
+    wget --content-disposition --show-progress -e dotbytes=4M \
+      ${token_header:+--header="$token_header"} \
+      -P "$dir" "$url" || echo "❌ Failed to download: $url"
+
+
 }
 
 function provisioning_print_header() {
